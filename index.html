@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker</title>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #expenses {
+      margin-top: 20px;
+    }
+    #expenses p {
+      margin: 5px 0;
+    }
+    #savings {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Expense Tracker</h1>
+  <label for="salary">Enter your salary:</label>
+  <input type="number" id="salary" placeholder="Enter your salary">
+  <button onclick="addExpense()">Add Expense</button>
+  <div id="expenses"></div>
+  <button onclick="calculateSavings()">Calculate Savings</button>
+  <div id="savings"></div>
+
+  <script>
+    let salary = 0;
+    let expenses = [];
+
+    function addExpense() {
+      const expense = prompt("Enter your expense:");
+      if (expense !== null && expense !== "") {
+        expenses.push(parseFloat(expense));
+        displayExpenses();
+      }
+    }
+
+    function displayExpenses() {
+      const expensesDiv = document.getElementById("expenses");
+      expensesDiv.innerHTML = "<h2>Expenses</h2>";
+      expenses.forEach((expense, index) => {
+        expensesDiv.innerHTML += `<p>Expense ${index + 1}: ${expense}</p>`;
+      });
+    }
+
+    function calculateSavings() {
+      salary = parseFloat(document.getElementById("salary").value);
+      const totalExpenses = expenses.reduce((acc, curr) => acc + curr, 0);
+      const savings = salary - totalExpenses;
+      const savingsDiv = document.getElementById("savings");
+      savingsDiv.innerHTML = `<h2>Your Savings</h2><p>Your salary: ${salary}</p><p>Your total expenses: ${totalExpenses}</p><p>Your savings: ${savings}</p>`;
+    }
+  </script>
+</body>
+</html>
